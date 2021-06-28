@@ -11,49 +11,52 @@ To start, you need to have an ENV_KEY from the <a href="https://dashboard.mux.co
 In order to use it, you need to import these files into the HTML and set the muxPlayerInitTime.
 
 ```html
-<head>
-  <script type="text/javascript" src="https://src.litix.io/core/4/mux.js"></script>
-  <script>window.muxPlayerInitTime = Date.now()</script>
-</head>
-<body>
-	<script type="text/javascript" src="NexMuxHandShake.js"></script>
-</body>
+  <head>
+    <script src="https://src.litix.io/core/4/mux.js"></script> 
+		<script src="Nexplayer SDK latest release"></script>
+		<script src="https://nexplayer.nexplayersdk.com/Mux/NexMuxHandShake.js"></script>
+    <script>window.muxPlayerInitTime = Date.now()</script>
+  </head>
 
  ```
 
  You can find <a href="https://github.com/NexPlayer/NexPlayer_HTML5_Mux/blob/main/app/NexMuxHandShake.js">NexMuxHandShake.js</a> in the following <a href="https://github.com/NexPlayer/NexPlayer_HTML5_Mux">repository</a>.
 
+ Nexplayer SDK [releases](https://nexplayer.github.io/NexPlayer_HTML5_Documentation/#/releases?id=releases-top)
+
  First you should create your muxConfiguration variable with the following structure:
 
 ```js
-var muxConfiguration = {
-  debug: true,
-  disableCookies: true,
-  respectDoNotTrack: true,
-  automaticErrorTracking: true,
-  data: {
-    env_key: 'ENV_KEY', // required
 
-    // Site Metadata
-    viewer_user_id: '', // ex: '12345'
-    experiment_name: '', // ex: 'player_test_A'
-    sub_property_id: '', // ex: 'cus-1'
+  var muxConfiguration = {
+    debug: true,
+    disableCookies: true,
+    respectDoNotTrack: true,
+    automaticErrorTracking: true,
+    data: {
+      env_key: 'ENV_KEY', // required
 
-    // Player Metadata
-    player_name: 'NexPlayer', // ex: 'My Main Player'
-    player_version:  '', // ex: '1.0.0'
-    player_init_time: window.muxPlayerInitTime, // ex: 1451606400000
+      // Site Metadata
+      viewer_user_id: '', // ex: '12345'
+      experiment_name: '', // ex: 'player_test_A'
+      sub_property_id: '', // ex: 'cus-1'
 
-    // Video Metadata
-    video_id: '', // ex: 'abcd123'
-    video_title: '', // ex: 'My Great Video'
-    video_series: '', // ex: 'Weekly Great Videos'
-    video_duration: '', // in milliseconds, ex: 120000
-    video_stream_type: '', // 'live' or 'on-demand'
-    video_cdn: '' // ex: 'Fastly', 'Akamai'
-  },
-};
- ```
+      // Player Metadata
+      player_name: 'NexPlayer', // ex: 'My Main Player'
+      player_version:  '', // ex: '1.0.0'
+      player_init_time: window.muxPlayerInitTime, // ex: 1451606400000
+
+      // Video Metadata
+      video_id: '', // ex: 'abcd123'
+      video_title: '', // ex: 'My Great Video'
+      video_series: '', // ex: 'Weekly Great Videos'
+      video_duration: '', // in milliseconds, ex: 120000
+      video_stream_type: '', // 'live' or 'on-demand'
+      video_cdn: '' // ex: 'Fastly', 'Akamai'
+    },
+  };
+
+```
 **Properties**:
 
 | Param | Type | Description |
@@ -69,21 +72,22 @@ NexMuxHandshake should be created in the callBackWithPlayers after the event “
 
 ```js
 
-  let nexMux = null;
+  var nexMux = null;
 
-    var callBackWithPlayers = function (nexplayerInstance, videoElement) {
+  var callBackWithPlayers = function (nexplayerInstance, videoElement) {
 
-      player = nexplayerInstance;
-      videoElem = videoElement;
+    player = nexplayerInstance;
+    videoElem = videoElement;
 
-      videoElem.addEventListener("loadeddata", function() {
+    videoElem.addEventListener("loadeddata", function() {
 
-        nexMux = new NexMuxHandShake();
-        // To use ad metrics, set useAdMetrics to true, it is set to false by default.
-        nexMux.useAdMetrics = true;
-        nexMux.initMuxData(muxConfiguration);
-      });
-    }
+      nexMux = new NexMuxHandShake();
+      // To use ad metrics, set useAdMetrics to true, it is set to false by default.
+      nexMux.useAdMetrics = true;
+      nexMux.initMuxData(player, videoElem.id, muxConfiguration);
+    });
+  }
+
 ```
 
 ## Changing the video
@@ -91,11 +95,22 @@ NexMuxHandshake should be created in the callBackWithPlayers after the event “
 If your application plays multiple videos back-to-back in the same video player, you should use the following function and pass a data object with the same structure as the muxConfiguration.data object.
 
 ```js
-nexMux.videoChange(data);
+  nexMux.videoChange(videoElem.id, data);
  ```
 
 In some cases, you may have the program change within a stream, and you may want to track each program as a view on its own. To do so you should use the following function and pass a data object with the same structure as the muxConfiguration.data object.
 
 ```js
-nexMux.programChange(data);
+  nexMux.programChange(videoElem.id, data);
 ```
+
+-------------------
+
+## Request demo
+[NexPlayer™ HTML5](https://nexplayersdk.com/html5-player/)
+
+
+[NexPlayer · Mux Data sample](https://nex360.s3.amazonaws.com/Mux/Index.html)
+
+## Contact
+[supportmadrid@nexplayer.com](mailto:supportmadrid@nexplayer.com)

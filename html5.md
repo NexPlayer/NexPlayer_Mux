@@ -6,9 +6,9 @@ Mux data allows you to monitor your video streaming performance.
 
 ## Using with the player
 
-To start, you need to have a ENV_KEY from the <a href="https://dashboard.mux.com/environments">Mux environments dashboard</a>. ENV_KEY is a client-side key used for Mux Data monitoring.  These are not to be confused with API tokens which are created in the admin settings dashboard and meant to access the Mux API from a trusted server.
+To start, you need to have an ENV_KEY from the <a href="https://dashboard.mux.com/environments">Mux environments dashboard</a>. ENV_KEY is a client-side key used for Mux Data monitoring. These are not to be confused with API tokens which are created in the admin settings dashboard and meant to access the Mux API from a trusted server.
 
-In order to use it, you need to import this tw files into the html and set the muxPlayerInitTime.
+In order to use it, you need to import these files into the HTML and set the muxPlayerInitTime.
 
 ```html
 <head>
@@ -59,15 +59,15 @@ var muxConfiguration = {
 | Param | Type | Description |
 | --- | --- | --- |
 | debug | <code>boolean</code> | Enable or disable debug mode |
-| disableCookies | <code>boolean</code> | Disable or enable the cookie that Mux use to track playback across subsequent page views if desired. |
+| disableCookies | <code>boolean</code> | Disable or enable the cookie that Mux uses to track playback across subsequent page views if desired. |
 | respectDoNotTrack | <code>boolean</code> | By default, mux does not respect Do Not Track when set within browsers. This can be enabled or disabled by this property. |
 | automaticErrorTracking | <code>boolean</code> | Enable or disable automatic error tracking completely. |
 | data | <code>Object</code> | Site, player and video metadata. |
 
 
- NexMuxHandshake should be created in the callBackWithPlayers after the event "loadeddata" is fired. This object links Nexplayer and Mux events and functions.
+NexMuxHandshake should be created in the callBackWithPlayers after the event “loadeddata” is fired. This object links Nexplayer and Mux events and functions.
 
- ```js
+```js
 
   let nexMux = null;
 
@@ -84,7 +84,7 @@ var muxConfiguration = {
         nexMux.initMuxData(muxConfiguration);
       });
     }
- ```
+```
 
 ## Changing the video
 
